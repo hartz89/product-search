@@ -1,0 +1,25 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": ["hapi"],
+  "plugins": ["node", "hapi"],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "rules": {
+    "hapi/hapi-capitalize-modules": "none",
+    "indent": [
+      "warn", 2
+    ],
+    "quotes": [
+      "warn", "single"
+    ],
+    "semi": [
+      "error", "always"
+    ]
+  }
+}
