@@ -32,6 +32,8 @@
   "dependencies": {
     "hapi": "17.2.2",
     "hapi-pino": "4.0.3",
-    "mongojs": "2.5.0"
+    "mongojs": "2.5.0",
+    "request": "2.85.0",
+    "request-promise": "4.2.2"
   }
 }

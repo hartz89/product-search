@@ -1,11 +1,10 @@
-const Hapi    = require('hapi');
-// const mongojs = require('mongojs');
-const pino    = require('hapi-pino');
+const Hapi   = require('hapi');
+const pino   = require('hapi-pino');
+const config = require('./config');
+const db     = require('./db');
 
-const server = new Hapi.Server({
-  host: 'localhost',
-  port: '3000'
-});
+
+const server = new Hapi.Server(config.hapi);
 
 // @todo remove this
 server.route({

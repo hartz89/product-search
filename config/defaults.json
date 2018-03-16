@@ -1,0 +1,6 @@
+{
+  "HAPI_PORT": 3000,
+  "HAPI_HOST": "localhost",
+  "DB_CONNECTION_STRING": "dev",
+  "WALMART_API_URL": "http://api.walmartlabs.com/v1"
+}
