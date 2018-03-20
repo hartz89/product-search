@@ -11,7 +11,9 @@
     "sourceType": "module"
   },
   "rules": {
-    "hapi/hapi-capitalize-modules": "none",
+    "hapi/hapi-capitalize-modules": 0,
+    "hapi/hapi-scope-start": 0,
+    "func-style": 0,
     "indent": [
       "warn", 2
     ],

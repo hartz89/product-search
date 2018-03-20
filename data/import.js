@@ -1,6 +1,7 @@
 const fs         = require('fs');
 const path       = require('path');
 const fetchItems = require('./fetch-items');
+const db         = require('../db');
 
 const filePath = path.join(__dirname, './items.csv');
 
@@ -14,21 +15,38 @@ fs.readFile(filePath, 'utf-8', (error, data) => {
 });
 
 function handleCSV(csvText) {
-  // @todo use regex that doesn't match last empty line, or move to csv-parse
   const itemIds = csvText.split(',\n');
-  itemIds.pop();
+  itemIds.pop(); // last elem will be empty
 
   fetchItems(itemIds)
     .then((response) => {
-      console.log(response);
-      storeItems(response.items);
+
+      const payload = JSON.parse(response);
+      storeItems(payload.items);
     })
     .catch((error) => {
+
       console.log(error);
       process.exit(1);
     });
 }
 
 function storeItems(items) {
-  // @todo store in mongo
+  const bulk = db.products.initializeOrderedBulkOp();
+
+  items.forEach((item) => {
+
+    bulk.insert(item);
+  });
+
+  bulk.execute((error, res) => {
+
+    if (error) {
+      console.log(error);
+      process.exit(1);
+    }
+
+    console.log(`Imported ${items.length} items into products collection`);
+    process.exit(0);
+  });
 }

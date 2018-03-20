@@ -1,30 +1,14 @@
-const Hapi   = require('hapi');
-const pino   = require('hapi-pino');
-const config = require('./config');
-const db     = require('./db');
-
+const Hapi          = require('hapi');
+const pino          = require('hapi-pino');
+const config        = require('./config');
+const productRoutes = require('./products/product-routes');
 
 const server = new Hapi.Server(config.hapi);
 
-// @todo remove this
-server.route({
-  method: 'GET',
-  path: '/',
-  handler: (request, h) => {
-
-    return 'Hello, world!';
-  }
-});
-
 const init = async () => {
-
-  await server.register({
-    plugin: pino,
-    options: {
-      prettyPrint: true,
-      logEvents: ['request', 'response']
-    }
-  });
+  // plugins
+  await server.register({ plugin: pino });
+  await server.register(productRoutes);
 
   await server.start();
 
@@ -32,9 +16,10 @@ const init = async () => {
 };
 
 process.on('unhandledRejection', (error) => {
-
   console.log(error);
   process.exit(1);
 });
 
 init();
+
+module.exports = server;
